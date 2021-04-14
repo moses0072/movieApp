@@ -29,7 +29,7 @@
         </div>  
 
         <table class="table table-hover table-bordered">
-           <h1>Endpoint Documentation</h1> 
+           <h1 class="head-table">Endpoint Documentation</h1> 
            <thead>
                <tr>
                    <th scope="col">Description</th>
@@ -66,6 +66,23 @@
                    <td>A JSON object holding data about the title of the requested movie</td>     
                </tr>
                <tr>
+                    <td scope="row">Return data about a genre (description) by name/title (e.g., "Thriller")</td>
+                    <td>GET</td>
+                    <td>/movies/:genre</td>
+                    <td>genre</td>
+                    <td>none</td>
+                    <td><em>e.g.</em><br>Iron Man is a 2008 superhero film, based on the Marvel Comics superhero of the same name. It is the first installment in the Marvel Cinematic Universe and the first installment of Phase One.</td>
+               </tr>
+               <tr>
+                    <td scope="row">Return data about a director (bio, birth year, death year) by name</td>
+                    <td>GET</td>
+                    <td>/movies/director/:name</td>
+                    <td>name</td>
+                    <td>none</td>
+                    <td><em>e.g.</em><br>born in 1966. He is an American actor, director, producer, and screenwriter.</td>
+
+               </tr>
+                <tr>
                    <td scope="row">Add a movie</td>
                    <td>POST</td>
                    <td>/movies</td>
@@ -80,6 +97,22 @@
                    <td>title</td>
                    <td>none</td>
                    <td>A text message indicating whether the movie was successfully removed</td>
+               </tr>
+               <tr>
+                   <td scope="row">Allow new users to register</td>
+                   <td>POST</td>
+                   <td>/users</td>
+                   <td>none</td>
+                   <td>A JSON object holding data about the users, who registerd <p>{ <br> Username: string <br> Password: string <br> Email: String <br> } </p></td>
+                   <td>A response that zhe account has been created</td>
+               </tr>
+               <tr>
+                   <td scope="row">Allow users to update thier info such as their username or email address</td>
+                   <td>PUT</td>
+                   <td>/user/:Username</td>
+                   <td>Username</td>
+                   <td>A JSON object holding data about the users, who registerd <p>{ <br> Username: string <br> Password: string <br> Email: String <br> } </p></td>
+                   <td>A response that contain the users update information</td>
                </tr>
            </tbody>
 
