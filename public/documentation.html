@@ -42,14 +42,6 @@
            </thead>
            <tbody>
                <tr>
-                   <td scope="row">Return the documentation html</td>
-                   <td>GET</td>
-                   <td>/documentation.html</td>
-                   <td>none</td>
-                   <td>none</td>
-                   <td>A response containing the documentation html</td>
-               </tr>
-               <tr>
                    <td scope="row">Return a list of all the movies to the users</td>
                    <td>GET</td>
                    <td>/movies</td>
@@ -60,66 +52,66 @@
                <tr>
                    <td scope="row">Return data about a single movie by title</td>
                    <td>GET</td>
+                   <td>/movies/[title]</td>
                    <td>/movies/:title</td>
-                   <td>title</td>
                    <td>none</td>
-                   <td>A JSON object holding data about the title of the requested movie</td>     
+                   <td>A JSON object holding data about the title of the requested movie <br><em>e.g.</e> <p>{ <br> 'Genre': { <br> 'Name': 'Crime', <br> 'Description':'About Crime' <br>}, <br> 'Director': {<br> 'Name': 'Columbus', <br> 'Bio': 'About Columbus', <br> 'Birth': '1958' <br> }, <br> 'Actors':[],<br>'_id': 'nummer', <br> 'title': 'Heat', <br> 'Description': 'About the Film'</p></em></td>     
                </tr>
                <tr>
                     <td scope="row">Return data about a genre (description) by name/title (e.g., "Thriller")</td>
                     <td>GET</td>
-                    <td>/movies/:genre</td>
-                    <td>genre</td>
+                    <td>/movies/genre/[name]</td>
+                    <td>/movies/genre/:name</td>
                     <td>none</td>
-                    <td><em>e.g.</em><br>Iron Man is a 2008 superhero film, based on the Marvel Comics superhero of the same name. It is the first installment in the Marvel Cinematic Universe and the first installment of Phase One.</td>
+                    <td>A JSON object holding data about the Genre<em>e.g.</em><br>{ <br>'Name':'Action', <br>'Description': 'Action movies are literally characterized by a whole lot of action. These films are marked by continuous high energy, tremendous impact and a ton of big-budget physical stunts and activities.' <br> }</td>
                </tr>
                <tr>
                     <td scope="row">Return data about a director (bio, birth year, death year) by name</td>
                     <td>GET</td>
-                    <td>/movies/director/:name</td>
-                    <td>name</td>
+                    <td>/movies/directors/[name]</td>
+                    <td>/movies/directors/:name</td>
                     <td>none</td>
-                    <td><em>e.g.</em><br>born in 1966. He is an American actor, director, producer, and screenwriter.</td>
+                    <td>A Json object holding data about the director. <br><em>e.g.</em> <p> { <br>'name': 'Steven Spilberg' <br> 'Bio': 'Director bio' <br> 'Birth': '1946' <br>}</p></td>
 
-               </tr>
-                <tr>
-                   <td scope="row">Add a movie</td>
-                   <td>POST</td>
-                   <td>/movies</td>
-                   <td>none</td>
-                   <td>A JSON object holding data about the movies to add, structured like <p>{ <br> title: "Avengers", <br> genres: { <br> name:"" <br> } <br> director: { <br> name:"" <br> }, </p> </td>
-                   <td>A JSON object holding data about the movie that was added, <p>{ <br> title: "Avengers", <br> genres: { <br> name:"" <br> } <br> director: { <br> name:"" <br> }, </p> </td>
-               </tr>
-               <tr>
-                   <td scope="row">Remove a movie by title</td>
-                   <td>DELETE</td>
-                   <td>/movies/:title</td>                 
-                   <td>title</td>
-                   <td>none</td>
-                   <td>A text message indicating whether the movie was successfully removed</td>
                </tr>
                <tr>
                    <td scope="row">Allow new users to register</td>
                    <td>POST</td>
                    <td>/users</td>
                    <td>none</td>
-                   <td>A JSON object holding data about the users, who registerd <p>{ <br> Username: string <br> Password: string <br> Email: String <br> } </p></td>
-                   <td>A response that zhe account has been created</td>
+                   <td>A JSON object holding data about the users, who registerd <p>{ <br> Username: string <br> Password: string <br> Email: String <br> Birthday: date <br> } </p></td>
+                   <td>A response that zhe account has been created <br><em>e.g.</em> <p> { <br> '_id': '6079b01a3e7e453e39ec717b' <br> 'Username: 'Moussa', <br> 'Password': '123456', <br> 'Email': 'hallo@yahoo.com', <br> 'Birthday': '1970-05-17 <br> } </p></td>
                </tr>
                <tr>
                    <td scope="row">Allow users to update thier info such as their username or email address</td>
                    <td>PUT</td>
+                   <td>/user/[Username]</td>
                    <td>/user/:Username</td>
-                   <td>Username</td>
-                   <td>A JSON object holding data about the users, who registerd <p>{ <br> Username: string <br> Password: string <br> Email: String <br> } </p></td>
-                   <td>A response that contain the users update information</td>
+                   <td>A JSON object holding data about the users update <p>{ <br> Username: string <br> Password: string <br> Email: String <br> } </p></td>
+                   <td>A response that contain the users updated information <br><em>e.g.</em> <p> { <br> '_id': '6079b01a3e7e453e39ec717b' <br> 'Username: 'Moussa', <br> 'Password': 'changed Password', <br> 'Email': 'hallo@yahoo.com', <br> 'Birthday': '1970-05-17 <br> } </p></td>
                </tr>
                <tr>
+                   <td scope="row">Allow users to add a movie to their list of favorites</td>
+                   <td>POST</td>
+                   <td>/users/[Username]/movies/[movieID]</td>
+                   <td>/users/[Username]/movies/:movieID</td>
+                   <td>none</td>
+                   <td>A JSON object holding data about the movie added into favorite list <br> <em>e.g.</em> <br> { <br> 'FavoriteMovies': [MovieID] <br> '_id': '', <br> 'Username': 'Moussa', <br> 'Password': '123456', <br> 'Email': '', 'Birthday': '' <br> } </td>
+               </tr>
+               <tr>
+                   <td scope="row">Allow users to remove a movie from their list of favorites</td>
+                   <td>DELETE</td>
+                   <td>/users/[Username]/movies/[movieID]</td>
+                   <td>/users/[Username]/movies/:movieID</td>
+                   <td>none</td>
+                   <td>A JSON object holding data about the updated favorite list <br> <em>e.g.</em> <br> { <br> 'FavoriteMovies': [ ] <br> '_id': '', <br> 'Username': 'Moussa', <br> 'Password': '123456', <br> 'Email': '', 'Birthday': '' <br> } </td>
+                </tr>
+               <tr>
                 <td scope="row">Allow existing users to deregister</td>
-                <td>POST</td>
-                <td>/users</td>
+                <td>delete</td>
+                <td>/users/:name</td>
                 <td>none</td>
-                <td>A JSON object holding data about the users, who deregisterd <p>{ <br> Username: string <br> Password: string <br> Email: String <br> } </p></td>
+                <td>none</td>
                 <td>A response that the account has been deleted</td>
             </tr>
            </tbody>
