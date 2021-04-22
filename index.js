@@ -4,6 +4,8 @@ const mongoose = require('mongoose'),
 	passport = require('passport');
 require('./passport');
 
+const {check, validationResult} = require('express-validator');
+
 //Cors access (allowed domains)
 const cors = require('cors');
 //List of allowed domains
@@ -98,8 +100,21 @@ app.get('/movies/director/:Name', passport.authenticate('jwt', { session: false}
 });
 
 
-// Allow new users to register
-app.post('/users', (req, res) => {
+// Allow new users to register and checking the enterd information 
+app.post('/users', [
+	check('Username', 'Username is required').isLength({min: 5}),
+	check('Username', 'Username contains non alphanumeric characters- not allowed.').isAlphanumeric(),
+	check('Password', 'password is required').not().isEmpty(),
+	check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+
+//Check the validation object for errors
+	let errors = validationResult(req);
+	if(!errors.isEmpty()) {
+		return res.status(422).json({errors: errors.array()});
+	}
+
+	let hashedPassword = Users.hashPassword(req.body.Password);
 	Users.findOne({ Username: req.body.Username })
 		.then((user) => {
 			if (user) {
@@ -107,7 +122,7 @@ app.post('/users', (req, res) => {
 			} else {
 				Users.create({
 					Username:req.body.Username,
-					Password: req.body.Password,
+					Password: hashedPassword,
 					Email: req.body.Email,
 					Birthday: req.body.Birthday
 				}) 
