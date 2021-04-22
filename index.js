@@ -233,7 +233,7 @@ app.delete('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', { se
 });
 
 //get the starting request
-app.get('/', passport.authenticate('jwt', { session: false}), (req, res) => {
+app.get('/', (req, res) => {
 	res.send('Welcome to myFlex movies!');
 });
 
