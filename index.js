@@ -50,6 +50,10 @@ app.get('/documentation', (req, res) => {
 	        res.sendFile('public/documentation.html', {root: __dirname});
 });
 
+//get the starting request
+app.get('/', (req, res) => {
+	res.send('Welcome to myFlex movies!');
+});
 
 //Return a list of ALL movies to the user 
 app.get('/movies', passport.authenticate('jwt', { session: false}), (req, res) => {
@@ -233,12 +237,6 @@ app.delete('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', { se
 	                }
 	        });
 });
-
-//get the starting request
-app.get('/', (req, res) => {
-	res.send('Welcome to myFlex movies!');
-});
-
 
 
 //logs into the Terminal
