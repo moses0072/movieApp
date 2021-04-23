@@ -9,7 +9,7 @@ const {check, validationResult} = require('express-validator');
 //Cors access (allowed domains)
 const cors = require('cors');
 //List of allowed domains
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+let allowedOrigins = ['http://localhost:8080', 'http://mytopfilms.herokuapp.com'];
 
 
 
