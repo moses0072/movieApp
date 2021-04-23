@@ -43,7 +43,6 @@ app.use(cors({
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
-
 //Return the documentation html
 app.use(express.static('public'));
 app.get('/documentation', (req, res) => {
@@ -188,24 +187,29 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false}), (re
 });
 
 //Allow users to update their user info (username)
-app.put('/users/:Username', passport.authenticate('jwt', { session: false}), (req, res) => {
-	Users.findOneAndUpdate({ Username: req.params.Username},
-		{$set:
-			{ Username: req.body.Username,
-			  Password: req.body.Password,
-			  Email: req.body.Email,
-			  Birthday: req.body.Birthday
-			}
-		},
-		{ new: true},
-		(err, updatedUser) => {
-			if(err) {
-				console.error(err);
+app.put('/users/:Username', passport.authenticate('jwt', { session: false}), [
+	check('Username', 'Username is required').isLength({min: 5}),
+	check('Username', 'Username contains non alphanumeric characters- not allowed.').isAlphanumeric(),
+	check('Password', 'password is required').not().isEmpty(),
+	check('Email', 'Email does not appear to be valid').isEmail()
+	], (req, res) => {
+		Users.findOneAndUpdate({ Username: req.params.Username},
+			{$set:
+				{ Username: req.body.Username,
+			  	Password: req.body.Password,
+			  	Email: req.body.Email,
+			  	Birthday: req.body.Birthday
+				}
+			},
+			{ new: true},
+			(err, updatedUser) => {
+				if(err) {
+					console.error(err);
 		                res.status(500).send('Error: ' + err);
-			} else {
-				res.json(updatedUser);
-			}
-		});
+				} else {
+					res.json(updatedUser);
+				}
+			});
 });
 
 //Add a movie to a user's list of favorites
