@@ -233,7 +233,7 @@ app.delete('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', { se
                         if (err) {
 	                        console.error(err);
 	                        res.status(500).send('Error: ' + err);
-			} else {											                                res.json(updatedUser);
+			} else { res.json(updatedUser);
 	                }
 	        });
 });
@@ -249,7 +249,7 @@ app.use((err, req, res, next) => {
 });
 
 //Listen for requests 
-const port = process.env.Port || 8080;
+const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0', () => {
 	console.log('Your app is listening on port ' + port);
 });
