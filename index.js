@@ -28,7 +28,8 @@ const app = express();
 app.use(bodyParser.json());
 let auth = require('./auth')(app);
 
-app.use(cors({
+app.use(cors());
+/*app.use(cors({
 	origin: (origin, callback) => {
 		if (!origin) return callback(null, true);
 		if(allowedOrigins.indexOf(origin) === -1) {
@@ -37,7 +38,7 @@ app.use(cors({
 		}
 		return callback(null, true);
 	}
-}));
+}));*/
 
 //mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -55,7 +56,7 @@ app.get('/', (req, res) => {
 });
 
 //Return a list of ALL movies to the user 
-app.get('/movies', passport.authenticate('jwt', {session: false}), function (req, res) {
+app.get('/movies',  function (req, res) {
 	Movies.find()
 	.then(function (movies) {
 
