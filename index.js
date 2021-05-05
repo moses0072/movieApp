@@ -34,7 +34,7 @@ require('./passport')
 //List of allowed domains
 //let allowedOrigins = ['http://localhost:8080', 'https://mytopfilms.herokuapp.com', 'http://localhost:1234', 'http://localhost:1234/login', 'https://mytopfilms.herokuapp.com/login'];
 
-
+app.use(cors());
 /*app.use(cors({
 	origin: (origin, callback) => {
 		if (!origin) return callback(null, true);
@@ -73,7 +73,7 @@ app.get('/movies',  function (req, res) {
 		res.status(500).send('error: ' + err);
 	});
 });
-app.use(cors());
+
 
 //Return data (description, genre, director, image URL, whether its featured or not) about a single movie by title to the user
 app.get('/movies/:title', passport.authenticate('jwt', {session: false}), (req, res) => {
