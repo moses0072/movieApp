@@ -28,7 +28,15 @@ const app = express();
 app.use(bodyParser.json());
 let auth = require('./auth')(app);
 
-app.use(cors());
+
+const corsOptions ={
+  origin:'http://localhost:1234', 'https://mytopfilms.herokuapp.com/', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
+
+//app.use(cors());
 /*app.use(cors({
 	origin: (origin, callback) => {
 		if (!origin) return callback(null, true);
@@ -47,7 +55,7 @@ mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnified
 //Return the documentation html
 app.use(express.static('public'));
 app.get('/documentation', (req, res) => {
-	        res.sendFile('public/documentation.html', {root: __dirname});
+   res.sendFile('public/documentation.html', {root: __dirname});
 });
 
 //get the starting request
