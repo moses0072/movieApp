@@ -5,14 +5,8 @@ const app = express();
 
 //Cors access (allowed domains)
 const cors = require('cors');
-//app.use(cors());
-const cors = require('cors');
-const corsOptions ={
-    origin:'http://localhost:3000', 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
-};
-app.use(cors(corsOptions));
+
+
 
 const {check, validationResult} = require('express-validator');
 
@@ -79,7 +73,7 @@ app.get('/movies',  function (req, res) {
 		res.status(500).send('error: ' + err);
 	});
 });
-
+app.use(cors());
 
 //Return data (description, genre, director, image URL, whether its featured or not) about a single movie by title to the user
 app.get('/movies/:title', passport.authenticate('jwt', {session: false}), (req, res) => {
