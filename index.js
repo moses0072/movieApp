@@ -30,7 +30,7 @@ let auth = require('./auth')(app);
 
 
 const corsOptions ={
-  origin:'http://localhost:1234', 'https://mytopfilms.herokuapp.com/', 
+  origin:'http://localhost:1234', 'https://mytopfilms.herokuapp.com/', 'https://mytopfilms.herokuapp.com/movies', 'https://mytopfilms.herokuapp.com/login', 
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200
 }
