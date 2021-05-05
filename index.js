@@ -1,36 +1,39 @@
+const express = require('express'),
+      morgan = require('morgan'),
+
+const app = express();  
+
+//Cors access (allowed domains)
+const cors = require('cors');
+app.use(cors());
+
+const {check, validationResult} = require('express-validator');
+
 //Integrating Mongoose with the REST API
 const mongoose = require('mongoose'),
 	Models = require('./models.js'),
 	passport = require('passport');
 require('./passport');
 
-const {check, validationResult} = require('express-validator');
+const Movies = Models.Movie;
+const Users = Models.User;
 
-//Cors access (allowed domains)
-const cors = require('cors');
+//mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const	bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
+let auth = require('./auth')(app);
+
+const passport = require('passport');
+require('./passport')
+
 
 //List of allowed domains
 //let allowedOrigins = ['http://localhost:8080', 'https://mytopfilms.herokuapp.com', 'http://localhost:1234', 'http://localhost:1234/login', 'https://mytopfilms.herokuapp.com/login'];
 
 
-
-const Movies = Models.Movie;
-const Users = Models.User;
-
-
-//Import express and create the server
-const express = require('express'),
-	  morgan = require('morgan'),
-	  bodyParser = require('body-parser');
-const { parse } = require('uuid');
-	  
-const app = express();
-
-app.use(bodyParser.json());
-let auth = require('./auth')(app);
-
-
-app.use(cors());
 /*app.use(cors({
 	origin: (origin, callback) => {
 		if (!origin) return callback(null, true);
@@ -42,9 +45,9 @@ app.use(cors());
 	}
 }));*/
 
-//mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
+//logs into the Terminal
+app.use(morgan('common'));
 
 //Return the documentation html
 app.use(express.static('public'));
@@ -249,9 +252,6 @@ app.delete('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', { se
 	        });
 });
 
-
-//logs into the Terminal
-app.use(morgan('common'));
 
 //Error-handling middleware
 app.use((err, req, res, next) => {
