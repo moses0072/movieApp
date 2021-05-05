@@ -29,14 +29,7 @@ app.use(bodyParser.json());
 let auth = require('./auth')(app);
 
 
-const corsOptions ={
-  origin:'http://localhost:1234', 'https://mytopfilms.herokuapp.com/', 'https://mytopfilms.herokuapp.com/movies', 'https://mytopfilms.herokuapp.com/login', 
-  credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200
-}
-app.use(cors(corsOptions));
-
-//app.use(cors());
+app.use(cors());
 /*app.use(cors({
 	origin: (origin, callback) => {
 		if (!origin) return callback(null, true);
