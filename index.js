@@ -32,10 +32,10 @@ let auth = require('./auth')(app);
 
 
 //List of allowed domains
-let allowedOrigins = ['http://localhost:8080', 'https://mytopfilms.herokuapp.com', 'http://localhost:1234', 'http://localhost:1234/login', 'https://mytopfilms.herokuapp.com/login'];
+//let allowedOrigins = ['http://localhost:8080', 'https://mytopfilms.herokuapp.com', 'http://localhost:1234', 'http://localhost:1234/login', 'https://mytopfilms.herokuapp.com/login'];
 
 app.use(cors());
-app.use(cors({
+/*app.use(cors({
 	origin: (origin, callback) => {
 		if (!origin) return callback(null, true);
 		if(allowedOrigins.indexOf(origin) === -1) {
@@ -44,7 +44,7 @@ app.use(cors({
 		}
 		return callback(null, true);
 	}
-}));
+}));*/
 
 
 //logs into the Terminal
