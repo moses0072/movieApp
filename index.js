@@ -1,5 +1,5 @@
 const express = require('express'),
-      morgan = require('morgan'),
+      morgan = require('morgan');
 
 const app = express();  
 
@@ -27,8 +27,8 @@ app.use(bodyParser.json());
 
 let auth = require('./auth')(app);
 
-const passport = require('passport');
-require('./passport')
+//const passport = require('passport');
+//require('./passport');
 
 
 //List of allowed domains
