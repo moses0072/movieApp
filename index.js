@@ -36,13 +36,6 @@ let auth = require('./auth')(app);
 //let allowedOrigins = ['http://localhost:8080', 'https://mytopfilms.herokuapp.com', 'http://localhost:1234', 'http://localhost:1234/login', 'https://mytopfilms.herokuapp.com/login'];
 
 app.use(cors());
-Router.get('/', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control.Max-Age', '1800');
-  res.setHeader('Access-Control-Allow-Headers', 'content-type');
-  res.setHeader('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, PATCH,OPTIONS');
-});
 /*app.use(cors({
 	origin: (origin, callback) => {
 		if (!origin) return callback(null, true);
